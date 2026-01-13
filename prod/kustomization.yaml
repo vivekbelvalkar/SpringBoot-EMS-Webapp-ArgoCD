@@ -6,3 +6,10 @@ resources:
   - service.yaml
   - configmap.yaml
   - serviceMonitor.yaml
+  - DB/configmap.yaml
+  - DB/mariadb-bootstrap-job.yaml
+  - DB/mariadb-bootstrap-sql-cm.yaml
+  - DB/mariadb-exporter.yaml
+  - DB/mariadb.yaml
+  - DB/service.yaml
+  - DB/serviceMonitor.yaml
