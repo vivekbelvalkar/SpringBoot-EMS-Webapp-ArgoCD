@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
         - name: ems-app
-          image: IMAGE_NAME
+          image: docker.io/vivekbelvalkar/ems-springboot-webapp
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: ENV_NAME
+              value: prod
               
               # From ConfigMap
             - name: DB_URL

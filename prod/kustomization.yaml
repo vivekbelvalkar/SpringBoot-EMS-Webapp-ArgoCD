@@ -13,3 +13,8 @@ resources:
   - DB/mariadb.yaml
   - DB/service.yaml
   - DB/serviceMonitor.yaml
+
+images:
+  - name: docker.io/vivekbelvalkar/ems-springboot-webapp
+    newName: docker.io/vivekbelvalkar/ems-springboot-webapp
+    newTag: "32"
