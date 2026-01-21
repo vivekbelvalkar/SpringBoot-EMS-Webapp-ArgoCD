@@ -4,7 +4,7 @@ metadata:
   name: ems-app-svc
   namespace: prod
   labels:
-    app: ems-app
+    app: ems-app-svc
 spec:
   type: NodePort
   selector:
