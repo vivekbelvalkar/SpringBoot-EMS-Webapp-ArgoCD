@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: env-config
 data:
-  env_name: ENV_NAME
+  env_name: prod
