@@ -13,8 +13,27 @@ resources:
   - DB/mariadb.yaml
   - DB/service.yaml
   - DB/serviceMonitor.yaml
+  - env-config.yaml
 
 images:
   - name: docker.io/vivekbelvalkar/ems-springboot-webapp
     newName: docker.io/vivekbelvalkar/ems-springboot-webapp
     newTag: argo-1
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: env-config
+      fieldPath: data.env_name
+    targets:
+      - select:
+          kind: ServiceMonitor
+          name: ems-app-svc-mon
+        fieldPaths:
+          - spec.namespaceSelector.matchNames.0
+
+      - select:
+          kind: ServiceMonitor
+          name: mariadb-exporter-svc-mon
+        fieldPaths:
+          - spec.namespaceSelector.matchNames.0
