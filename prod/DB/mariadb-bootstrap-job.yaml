@@ -16,20 +16,20 @@ spec:
             - -c
             - |
               echo "Waiting for MariaDB..."
-              until mysql -h mariadb -u"$DB_USER" -p"$DB_PASSWORD" -e "SELECT 1"; do
+              until mysql -h mariadb-svc -u"$DB_USER" -p"$DB_PASSWORD" -e "SELECT 1"; do
                 sleep 5
               done
 
               echo "Applying schema & users..."
-              mysql -h mariadb -u"$DB_USER" -p"$DB_PASSWORD" < /sql/db_users_tables.sql
+              mysql -h mariadb-svc -u"$DB_USER" -p"$DB_PASSWORD" < /sql/db_users_tables.sql
 
               echo "Checking seed data..."
-              COUNT=$(mysql -h mariadb -u"$DB_USER" -p"$DB_PASSWORD" demo \
+              COUNT=$(mysql -h mariadb-svc -u"$DB_USER" -p"$DB_PASSWORD" demo \
                 -N -B -e "SELECT COUNT(*) FROM members;")
 
               if [ "$COUNT" -eq 0 ]; then
                 echo "Inserting seed data..."
-                mysql -h mariadb -u"$DB_USER" -p"$DB_PASSWORD" demo < /sql/seed_data.sql
+                mysql -h mariadb-svc -u"$DB_USER" -p"$DB_PASSWORD" demo < /sql/seed_data.sql
                 echo "Seed data inserted"
               else
                 echo "Seed data already exists. Skipping."
