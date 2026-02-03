@@ -29,3 +29,18 @@ spec:
         - name: mariadb-metrics-config
           secret:
             secretName: mariadb-metrics-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-exporter-svc
+  namespace: prod
+  labels:
+    app: mariadb-exporter-svc
+spec:
+  selector:
+    app: mariadb-exporter
+  ports:
+    - name: metrics
+      port: 9104
+      targetPort: 9104

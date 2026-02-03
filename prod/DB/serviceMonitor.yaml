@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mariadb-exporter
+      app: mariadb-exporter-svc
   namespaceSelector:
     matchNames:
       - ENV_NAME
