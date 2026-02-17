@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-app
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ems-app
+  template:
+    metadata:
+      labels:
+        app: ems-app
+    spec:
+      containers:
+        - name: ems-app
+          image: docker.io/vivekbelvalkar/ems-springboot-webapp
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+              
+              # From ConfigMap
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ems-configmap
+                  key: db_url
+
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: ems-configmap
+                  key: db_username
+
+            # From Secret
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ems-db-secret
+                  key: db_password
+
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 20
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+#            initialDelaySeconds: 30  // Not needed coz we are using startupProbe
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+#            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3

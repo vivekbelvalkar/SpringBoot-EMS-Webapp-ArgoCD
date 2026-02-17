@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - configmap.yaml
+  - serviceMonitor.yaml
+  - DB/configmap.yaml
+  - DB/mariadb-bootstrap-job.yaml
+  - DB/mariadb-bootstrap-sql-cm.yaml
+  - DB/mariadb-exporter.yaml
+  - DB/mariadb.yaml
+  - DB/service.yaml
+  - DB/serviceMonitor.yaml
+  - env-config.yaml
+
+images:
+  - name: docker.io/vivekbelvalkar/ems-springboot-webapp
+    newName: docker.io/vivekbelvalkar/ems-springboot-webapp
+    newTag: argo-35
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: env-config
+      fieldPath: data.env_name
+    targets:
+      - select:
+          kind: ServiceMonitor
+          name: ems-app-svc-mon
+        fieldPaths:
+          - spec.namespaceSelector.matchNames.0
+
+      - select:
+          kind: ServiceMonitor
+          name: mariadb-exporter-svc-mon
+        fieldPaths:
+          - spec.namespaceSelector.matchNames.0
