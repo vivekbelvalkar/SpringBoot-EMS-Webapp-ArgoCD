@@ -18,7 +18,7 @@ resources:
 images:
   - name: docker.io/vivekbelvalkar/ems-springboot-webapp
     newName: docker.io/vivekbelvalkar/ems-springboot-webapp
-    newTag: argo-1
+    newTag: argo-3
 
 replacements:
   - source:
