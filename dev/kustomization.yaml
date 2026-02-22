@@ -17,8 +17,8 @@ resources:
 
 images:
   - name: docker.io/vivekbelvalkar/ems-springboot-webapp
-    newName: docker.io/vivekbelvalkar/ems-springboot-webapp
-    newTag: 7fbcee0
+    newName: "$NEXUS_REGISTRY/$NEXUS_DOCKER_REPO/$IMAGE_NAME"
+    newTag: 29abd8b
 
 replacements:
   - source:
