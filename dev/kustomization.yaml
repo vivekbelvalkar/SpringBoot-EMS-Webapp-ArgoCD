@@ -28,12 +28,12 @@ replacements:
     targets:
       - select:
           kind: ServiceMonitor
-          name: ems-app-svc-mon
+          name: ems-app-svc-mon-dev
         fieldPaths:
           - spec.namespaceSelector.matchNames.0
 
       - select:
           kind: ServiceMonitor
-          name: mariadb-exporter-svc-mon
+          name: mariadb-exporter-svc-mon-dev
         fieldPaths:
           - spec.namespaceSelector.matchNames.0
