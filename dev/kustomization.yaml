@@ -17,8 +17,8 @@ resources:
 
 images:
   - name: docker.io/vivekbelvalkar/ems-springboot-webapp
-    newName: "192.168.208.128:8082"/"ems-app"/"ems-springboot-webapp"
-    newTag: "418842ea"
+    newName: 192.168.208.128:8082/ems-app/ems-springboot-webapp
+    newTag: 920d72d1
 
 replacements:
   - source:
